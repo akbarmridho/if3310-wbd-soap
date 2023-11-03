@@ -1,31 +1,27 @@
 package com.listwibuku.models;
 
 import com.listwibuku.enums.SubscriberStatus;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Date;
+
+@Getter
 public class Subscriber {
     private final int userId;
-    private final int animeId;
+    private final Date subscriptionStartTime;
+
+    @Setter
     private SubscriberStatus status;
 
-    public Subscriber(int userId, int animeId, SubscriberStatus status) {
+    @Setter
+    private Date subscriptionEndTime;
+
+    public Subscriber(int userId, SubscriberStatus status, Date startTime, Date endTime) {
         this.userId = userId;
-        this.animeId = animeId;
         this.status = status;
+        this.subscriptionStartTime = startTime;
+        this.subscriptionEndTime = endTime;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getAnimeId() {
-        return animeId;
-    }
-
-    public SubscriberStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(SubscriberStatus newStatus) {
-        this.status = newStatus;
-    }
 }
