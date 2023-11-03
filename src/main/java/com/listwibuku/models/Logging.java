@@ -7,7 +7,9 @@ public class Logging {
     private String description;
     private String ip;
     private String endpoint;
-    private Date requestDate;
+
+    private String client;
+    private Date requestedAt;
 
     public Logging() {
 

@@ -28,6 +28,7 @@ public class Main {
             endpoint.getBinding().setHandlerChain(handlerChain);
 
             System.out.println("Server started at " + host + ":" + port);
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

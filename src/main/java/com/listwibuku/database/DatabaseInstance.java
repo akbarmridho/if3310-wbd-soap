@@ -3,9 +3,11 @@ package com.listwibuku.database;
 import com.listwibuku.utils.Config;
 import lombok.Getter;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseInstance implements DatabaseInstanceInterface {
 
@@ -25,6 +27,21 @@ public class DatabaseInstance implements DatabaseInstanceInterface {
 
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             this.connection = DriverManager.getConnection(url, user, pass);
+
+            System.out.println("Performing database migration");
+
+            InputStream is = getClass().getClassLoader().getResourceAsStream("migration.sql");
+
+            if (is == null) {
+                throw new Exception("Cannot read migration.sql");
+            }
+
+            String ddl = is.toString();
+
+            Statement statement = this.connection.createStatement();
+            statement.execute(ddl);
+
+            System.out.println("Database migration success");
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
