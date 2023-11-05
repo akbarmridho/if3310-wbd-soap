@@ -3,11 +3,14 @@ package com.listwibuku.database;
 import com.listwibuku.utils.Config;
 import lombok.Getter;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.stream.Collectors;
 
 public class DatabaseInstance implements DatabaseInstanceInterface {
 
@@ -30,16 +33,19 @@ public class DatabaseInstance implements DatabaseInstanceInterface {
 
             System.out.println("Performing database migration");
 
+
             InputStream is = getClass().getClassLoader().getResourceAsStream("migration.sql");
 
             if (is == null) {
                 throw new Exception("Cannot read migration.sql");
             }
 
-            String ddl = is.toString();
+            String ddl = new BufferedReader(new InputStreamReader(is))
+                    .lines()
+                    .collect(Collectors.joining("\n"));
 
-            Statement statement = this.connection.createStatement();
-            statement.execute(ddl);
+            PreparedStatement statement = this.connection.prepareStatement(ddl);
+            statement.executeUpdate();
 
             System.out.println("Database migration success");
         } catch (SQLException ex) {

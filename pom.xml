@@ -23,7 +23,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>App</mainClass>
+                            <mainClass>com.listwibuku.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

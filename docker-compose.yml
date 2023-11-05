@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  soapservice:
+    container_name: listwibuku-soap-service
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DATABASE_NAME=soap
+      - DATABASE_HOST=listwibuku-soap-database
+      - DATABASE_PORT=3307
+      - DATABASE_USER=soap
+      - DATABASE_PASSWORD=soap
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mysql
+  mysql:
+    container_name: listwibuku-soap-database
+    image:
+      mysql:8.1
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=soap
+      - MYSQL_DATABASE=soap
+      - MYSQL_USER=soap
+      - MYSQL_PASSWORD=soap
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db:

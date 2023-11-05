@@ -1,5 +1,6 @@
 package com.listwibuku;
 
+import com.listwibuku.database.DatabaseInstance;
 import com.listwibuku.middleware.Authentication;
 import com.listwibuku.middleware.Logger;
 import com.listwibuku.services.SubscriberImpl;
@@ -16,6 +17,9 @@ public class Main {
             String host = instance.getHost();
             Integer port = instance.getPort();
 
+            // init database instance
+            DatabaseInstance.getInstance();
+
             Endpoint endpoint = Endpoint.publish(host + ":" + port + "/subscriberservice", new SubscriberImpl());
             List<Handler> handlerChain = endpoint.getBinding().getHandlerChain();
 
@@ -28,7 +32,6 @@ public class Main {
             endpoint.getBinding().setHandlerChain(handlerChain);
 
             System.out.println("Server started at " + host + ":" + port);
-
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
