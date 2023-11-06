@@ -23,7 +23,7 @@ public class DatabaseInstance implements DatabaseInstanceInterface {
     public DatabaseInstance() {
         try {
             Config config = Config.getInstance();
-            String url = String.format("jdbc:mysql://%s:%d/%s", config.getDatabaseHost(), config.getDatabasePort(), config.getDatabaseName());
+            String url = String.format("jdbc:mysql://%s:%d/%s?allowMultiQueries=true", config.getDatabaseHost(), config.getDatabasePort(), config.getDatabaseName());
             String user = config.getDatabaseUser();
             String pass = config.getDatabasePassword();
             System.out.println("Trying to connect to database at " + url + " with user " + user + " and pass " + pass);
