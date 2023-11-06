@@ -8,7 +8,7 @@ services:
     environment:
       - PORT=3001
       - DATABASE_NAME=soap
-      - DATABASE_HOST=listwibuku-soap-database
+      - DATABASE_HOST=host.docker.internal
       - DATABASE_PORT=3307
       - DATABASE_USER=soap
       - DATABASE_PASSWORD=soap
