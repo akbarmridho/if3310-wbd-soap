@@ -40,3 +40,4 @@ User will be notified via email when their subscription is started or renewed th
 | User subscription | 13521074 |
 | Logger            | 13521093 |
 | Api Key           | 13521093 | 
+| Bonus Mailer      | 13521093 |
