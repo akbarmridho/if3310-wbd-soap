@@ -5,10 +5,13 @@ import com.listwibuku.models.Subscriber;
 import com.listwibuku.repository.SubscriberRepository;
 
 import javax.inject.Inject;
-import javax.jws.*;
+import javax.jws.HandlerChain;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import java.util.Date;
 
 @WebService(endpointInterface = "com.listwibuku.services.SubscriberService")
+@HandlerChain(file = "handlers.xml")
 public class SubscriberImpl implements SubscriberService {
     @Inject
     private final SubscriberRepository repository = new SubscriberRepository();
@@ -36,13 +39,13 @@ public class SubscriberImpl implements SubscriberService {
 
     @WebMethod
     public Date getSubscriberStartTime(int userId) {
-        System.out.printf("start time of user %d", userId);
+        System.out.printf("start time of user %d\n", userId);
         return new Date();
     }
 
     @WebMethod
     public Date getSubscriberEndTime(int userId) {
-        System.out.printf("end time of user %d", userId);
+        System.out.printf("end time of user %d\n", userId);
         return new Date();
     }
 
