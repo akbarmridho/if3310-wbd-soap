@@ -9,7 +9,7 @@ public class SubscriberRepository {
     public Subscriber createSubscriber(int userId, SubscriberStatus status) {
         System.out.printf("Created subscriber with id %d\n", userId);
 
-        return new Subscriber(1, status, new Date(), new Date());
+        return new Subscriber(1, status, new Date(), new Date(), "testemail@email.com");
     }
 
     public SubscriberStatus getSubscriberStatus(int userId) {
@@ -20,7 +20,6 @@ public class SubscriberRepository {
 
     public String updateSubscriberStatus(int userId, SubscriberStatus statusUpdate) {
         System.out.printf("Updating subscriber %d\n", userId);
-        System.out.println(statusUpdate.toString());
 
         return "Updated subscriber";
     }

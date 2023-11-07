@@ -9,6 +9,8 @@ services:
       - PORT=3001
       - DATABASE_NAME=soap
       - DATABASE_HOST=host.docker.internal
+      - MAIL_HOST=host.docker.internal
+      - MAIL_PORT=1025
       - DATABASE_PORT=3307
       - DATABASE_USER=soap
       - DATABASE_PASSWORD=soap
@@ -35,5 +37,11 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+  mailhog:
+    image: mailhog/mailhog
+    container_name: 'mailhog'
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 volumes:
   db:

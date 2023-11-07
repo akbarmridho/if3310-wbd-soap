@@ -38,6 +38,19 @@ public class Config {
     @NonNull
     private final String databasePassword;
 
+    @Getter
+    @NonNull
+    private final String mailHost;
+
+    @Getter
+    @NonNull
+    private final Integer mailPort;
+
+    @Getter
+    @NonNull
+    private final String mailFrom;
+
+
     public Config() {
         this.host = getenvOr("HOST", "http://0.0.0.0");
         this.port = Integer.parseInt(getenvOr("PORT", "3050"));
@@ -47,6 +60,9 @@ public class Config {
         this.databasePort = Integer.parseInt(getenvOr("DATABASE_PORT", "3307"));
         this.databaseUser = getenvOr("DATABASE_USER", "soap");
         this.databasePassword = getenvOr("DATABASE_PASSWORD", "soap");
+        this.mailHost = getenvOr("MAIL_HOST", "host.docker.internal");
+        this.mailPort = Integer.parseInt(getenvOr("MAIL_PORT", "1025"));
+        this.mailFrom = getenvOr("MAIL_FROM", "soap@listwibuku.com");
     }
 
     private String getenvOr(String key, String defaultValue) {

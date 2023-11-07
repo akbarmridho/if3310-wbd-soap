@@ -20,12 +20,19 @@ public class SubscriberImpl implements SubscriberService {
     public Subscriber createSubscriber(int userId, SubscriberStatus status) {
         System.out.println("create subscriber via service");
 
-        return repository.createSubscriber(userId, status);
+        Subscriber result = repository.createSubscriber(userId, status);
+
+        MailerService.getInstance().notifyStartSubscription(result);
+
+        return result;
     }
 
     @WebMethod
     public String updateSubscriberStatus(int userId, SubscriberStatus statusUpdate) {
         System.out.println("updating subscription using service");
+
+        Subscriber result = repository.createSubscriber(userId, statusUpdate);
+        MailerService.getInstance().notifyRenewSubscription(result);
 
         return repository.updateSubscriberStatus(userId, statusUpdate);
     }
