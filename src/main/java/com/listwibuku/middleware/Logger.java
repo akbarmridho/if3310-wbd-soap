@@ -1,5 +1,7 @@
 package com.listwibuku.middleware;
 
+import com.listwibuku.models.Log;
+import com.listwibuku.repository.LogRepository;
 import com.sun.net.httpserver.HttpExchange;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -38,22 +40,21 @@ public class Logger implements SOAPHandler<SOAPMessageContext> {
             SOAPBody soapBody = soapEnvelope.getBody();
 
             Node operation = soapBody.getChildNodes().item(1);
-            String content = String.format("%s", operation.getLocalName());
+            String description = String.format("called %s", operation.getLocalName());
 
             NodeList parameters = operation.getChildNodes();
             for (int i = 1; i < parameters.getLength(); i += 2) {
-                content = String.format("%s %s(%s)", content, parameters.item(i).getLocalName(), parameters.item(i).getTextContent());
+                description = String.format("%s %s(%s)", description, parameters.item(i).getLocalName(), parameters.item(i).getTextContent());
             }
 
-            // save to db
-            System.out.println("Client");
-            System.out.println(client);
-            System.out.println("Description");
-            System.out.println(content);
-            System.out.println("Endpoint");
-            System.out.println(httpExchange.getRequestURI());
-            System.out.println("Ip address");
-            System.out.println(httpExchange.getRemoteAddress().getHostString());
+            Log log = LogRepository.getInstance().create(
+                    client,
+                    description,
+                    httpExchange.getRemoteAddress().getHostString(),
+                    httpExchange.getRequestURI().toString()
+            );
+
+            System.out.format("Client %s (%s) requested %s with %s at %s\n", log.getClient(), log.getIp(), log.getEndpoint(), log.getDescription(), log.getRequestedAt().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
