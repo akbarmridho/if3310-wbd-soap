@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.util.Date;
 
 @WebService(endpointInterface = "com.listwibuku.services.SubscriberService")
 @HandlerChain(file = "handlers.xml")
@@ -38,28 +37,11 @@ public class SubscriberImpl implements SubscriberService {
     }
 
     @WebMethod
-    public SubscriberStatus getSubscriberStatus(int userId) {
+    public Subscriber getSubscriber(int userId) {
         System.out.println("getting status via service");
 
-        return repository.getSubscriberStatus(userId);
+        return repository.getSubscriber(userId);
     }
 
-    @WebMethod
-    public Date getSubscriberStartTime(int userId) {
-        System.out.printf("start time of user %d\n", userId);
-        return new Date();
-    }
 
-    @WebMethod
-    public Date getSubscriberEndTime(int userId) {
-        System.out.printf("end time of user %d\n", userId);
-        return new Date();
-    }
-
-    @WebMethod
-    public Date updateSubscriberEndTime(int userId, Date endTime) {
-        System.out.println(endTime.toString());
-
-        return endTime;
-    }
 }

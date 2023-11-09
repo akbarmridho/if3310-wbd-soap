@@ -12,10 +12,9 @@ public class SubscriberRepository {
         return new Subscriber(1, status, new Date(), new Date(), "testemail@email.com");
     }
 
-    public SubscriberStatus getSubscriberStatus(int userId) {
-        System.out.printf("User %d unsubscribed\n", userId);
-
-        return SubscriberStatus.UNSUBSCRIBED;
+    public Subscriber getSubscriber(int userId) {
+        // untuk case subscriber tidak ditemukan, return null saja
+        return new Subscriber(1, SubscriberStatus.SUBSCRIBED, new Date(), new Date(), "testemail@email.com");
     }
 
     public String updateSubscriberStatus(int userId, SubscriberStatus statusUpdate) {
