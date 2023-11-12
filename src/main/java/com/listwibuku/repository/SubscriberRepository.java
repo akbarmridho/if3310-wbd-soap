@@ -5,16 +5,16 @@ import com.listwibuku.models.Subscriber;
 import java.util.Date;
 
 public class SubscriberRepository {
-    public Subscriber create(int userId, String email) {
-        System.out.printf("Created subscriber with id %d\n", userId);
+    public Subscriber create(String email) {
+        System.out.print("Created subscriber\n");
 //        TODO: validate email
 
-        return new Subscriber(1, new Date(), new Date(), "testemail@email.com");
+        return new Subscriber(1, new Date(), new Date(), email);
     }
 
     public Subscriber findById(int userId) {
         // untuk case subscriber tidak ditemukan, return null saja
-        return new Subscriber(1, new Date(), new Date(), "testemail@email.com");
+        return new Subscriber(userId, new Date(), new Date(), "testemail@email.com");
     }
 
     public String updateSubscription(int userId) {

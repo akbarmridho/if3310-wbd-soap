@@ -15,10 +15,10 @@ public class SubscriberImpl implements SubscriberService {
     private final SubscriberRepository repository = new SubscriberRepository();
 
     @WebMethod
-    public Subscriber createSubscriber(int userId, String email) {
+    public Subscriber createSubscriber(String email) {
         System.out.println("create subscriber via service");
 
-        Subscriber result = repository.create(userId, email);
+        Subscriber result = repository.create(email);
 
         MailerService.getInstance().notifyStartSubscription(result);
 
@@ -29,7 +29,7 @@ public class SubscriberImpl implements SubscriberService {
         System.out.println("updating subscription using service");
 
 //        TODO: renew using repository
-        Subscriber result = repository.create(userId, "test@email.com");
+        Subscriber result = repository.create("test@email.com");
 
         MailerService.getInstance().notifyRenewSubscription(result);
 
