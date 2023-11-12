@@ -14,6 +14,15 @@ CREATE TABLE IF NOT EXISTS log
     requestedAt timestamp    not null default now()
 );
 
+CREATE TABLE IF NOT EXISTS subscriber
+(
+    id         serial primary key,
+    email      varchar(255) not null,
+    start_date timestamp    not null default now(),
+    end_date   timestamp    not null default now()
+# TODO: end_date
+);
+
 # NOT HASHED KEY F9ikNrL1qNbi1m18YNhBSwFNc502W5AYBSeUyxgzTbpaxxxiiq6D1ZJKmaEB
 INSERT IGNORE INTO api_key(client, secret)
 VALUES ('listwibuku-monolith', '61087720abaa0ec54c16372c059d1727bd9f788134ae8866d43696436cdf4bd0');
