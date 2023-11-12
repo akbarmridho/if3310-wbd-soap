@@ -1,6 +1,5 @@
 package com.listwibuku.services;
 
-import com.listwibuku.enums.SubscriberStatus;
 import com.listwibuku.models.Subscriber;
 import com.listwibuku.repository.SubscriberRepository;
 
@@ -16,31 +15,32 @@ public class SubscriberImpl implements SubscriberService {
     private final SubscriberRepository repository = new SubscriberRepository();
 
     @WebMethod
-    public Subscriber createSubscriber(int userId, SubscriberStatus status) {
+    public Subscriber createSubscriber(int userId, String email) {
         System.out.println("create subscriber via service");
 
-        Subscriber result = repository.createSubscriber(userId, status);
+        Subscriber result = repository.create(userId, email);
 
         MailerService.getInstance().notifyStartSubscription(result);
 
         return result;
     }
 
-    @WebMethod
-    public String updateSubscriberStatus(int userId, SubscriberStatus statusUpdate) {
+    public String renewSubscriber(int userId) {
         System.out.println("updating subscription using service");
 
-        Subscriber result = repository.createSubscriber(userId, statusUpdate);
+//        TODO: renew using repository
+        Subscriber result = repository.create(userId, "test@email.com");
+
         MailerService.getInstance().notifyRenewSubscription(result);
 
-        return repository.updateSubscriberStatus(userId, statusUpdate);
+        return repository.updateSubscription(userId);
     }
 
     @WebMethod
     public Subscriber getSubscriber(int userId) {
         System.out.println("getting status via service");
 
-        return repository.getSubscriber(userId);
+        return repository.findById(userId);
     }
 
 

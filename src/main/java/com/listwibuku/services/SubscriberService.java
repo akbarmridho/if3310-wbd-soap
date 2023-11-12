@@ -1,7 +1,6 @@
 package com.listwibuku.services;
 
 
-import com.listwibuku.enums.SubscriberStatus;
 import com.listwibuku.models.Subscriber;
 
 import javax.jws.WebMethod;
@@ -10,10 +9,10 @@ import javax.jws.WebService;
 @WebService
 public interface SubscriberService {
     @WebMethod
-    Subscriber createSubscriber(int userId, SubscriberStatus status);
+    Subscriber createSubscriber(int userId, String email);
 
     @WebMethod
-    String updateSubscriberStatus(int userId, SubscriberStatus statusUpdate);
+    String renewSubscriber(int userId);
 
     @WebMethod
     Subscriber getSubscriber(int userId);
