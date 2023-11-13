@@ -10,9 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ApiKeyRepository {
-    private DatabaseInstanceInterface database;
-    private String tableName = "api_key";
     private static ApiKeyRepository instance;
+    private final DatabaseInstanceInterface database;
+    private final String tableName = "api_key";
 
     protected ApiKeyRepository(DatabaseInstanceInterface db) {
         this.database = db;
@@ -41,7 +41,7 @@ public class ApiKeyRepository {
             apiKey.constructFromSQL(rs);
             result = apiKey;
         }
-        
+
         return result;
     }
 }

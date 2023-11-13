@@ -13,46 +13,52 @@ import java.sql.SQLException;
 public class SubscriberImpl implements SubscriberService {
     @WebMethod
     public Subscriber createSubscriber(String email) {
-        System.out.println("create subscriber via service");
+        System.out.println("Create subscriber via service");
 
         try {
             Subscriber result = SubscriberRepository.getInstance().create(email);
-            //        TODO: trycatch
 
             MailerService.getInstance().notifyStartSubscription(result);
 
             return result;
         } catch (SQLException e) {
-            System.out.println("sqlexception");
+            System.out.println("Failed to create subscriber");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
 
     public Subscriber renewSubscriber(int userId) {
-        System.out.println("updating subscription using service");
+        System.out.println("Updating subscription using service");
 
         try {
             Subscriber result = SubscriberRepository.getInstance().create("test@email.com");
-            //        TODO: trycatch
 
             MailerService.getInstance().notifyRenewSubscription(result);
 
             return SubscriberRepository.getInstance().updateSubscription(userId);
         } catch (SQLException e) {
-            System.out.println("sqlexception");
+            System.out.println("Failed to renew subscription for subscriber " + userId);
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
 
     @WebMethod
     public Subscriber getSubscriber(int userId) {
-        System.out.println("getting status via service");
+        System.out.println("Getting status via service");
 
         try {
-            //        TODO: trycatch
             return SubscriberRepository.getInstance().findById(userId);
         } catch (SQLException e) {
-            System.out.println("sqlexception");
+            System.out.println("Failed to get subscriber " + userId);
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
