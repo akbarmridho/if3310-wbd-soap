@@ -6,6 +6,7 @@ import com.listwibuku.repository.SubscriberRepository;
 import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.validation.constraints.Email;
 import java.sql.SQLException;
 
 @WebService(endpointInterface = "com.listwibuku.services.SubscriberService")
@@ -23,6 +24,7 @@ public class SubscriberImpl implements SubscriberService {
             return result;
         } catch (SQLException e) {
             System.out.println("Failed to create subscriber");
+            e.printStackTrace();
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,17 +32,23 @@ public class SubscriberImpl implements SubscriberService {
         }
     }
 
+    @WebMethod
     public Subscriber renewSubscriber(int userId) {
         System.out.println("Updating subscription using service");
 
         try {
-            Subscriber result = SubscriberRepository.getInstance().create("test@email.com");
+            Subscriber result = SubscriberRepository.getInstance().updateSubscription(userId);
+
+            if (result == null) {
+                return null;
+            }
 
             MailerService.getInstance().notifyRenewSubscription(result);
 
-            return SubscriberRepository.getInstance().updateSubscription(userId);
+            return result;
         } catch (SQLException e) {
             System.out.println("Failed to renew subscription for subscriber " + userId);
+            e.printStackTrace();
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,6 +64,7 @@ public class SubscriberImpl implements SubscriberService {
             return SubscriberRepository.getInstance().findById(userId);
         } catch (SQLException e) {
             System.out.println("Failed to get subscriber " + userId);
+            e.printStackTrace();
             return null;
         } catch (Exception e) {
             e.printStackTrace();

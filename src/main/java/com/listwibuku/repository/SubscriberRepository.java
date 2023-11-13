@@ -79,8 +79,6 @@ public class SubscriberRepository {
             return null;
         }
 
-        Subscriber newData = null;
-
         PreparedStatement statement = this.database.getConnection().prepareStatement("UPDATE " + this.tableName + " SET end_date = ? WHERE id = ?");
 
         // prepare new end_date
@@ -91,14 +89,12 @@ public class SubscriberRepository {
         statement.setTimestamp(1, new Timestamp(calendar.getTime().getTime()));
         statement.setInt(2, userId);
 
-        ResultSet rs = statement.executeQuery();
+        int updatedRows = statement.executeUpdate();
 
-        while (rs.next()) {
-            Subscriber subscriber = new Subscriber();
-            subscriber.constructFromSQL(rs);
-            newData = subscriber;
+        if (updatedRows == 0) {
+            throw new SQLException("Update subscription failed, no rows affected");
         }
 
-        return newData;
+        return findById(userId);
     }
 }
