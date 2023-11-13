@@ -1,5 +1,6 @@
 package com.listwibuku.repository;
 
+import com.listwibuku.database.DatabaseInstance;
 import com.listwibuku.database.DatabaseInstanceInterface;
 import com.listwibuku.models.Subscriber;
 
@@ -8,11 +9,21 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class SubscriberRepository {
+    private static SubscriberRepository instance;
     private final String tableName = "subscriber";
     private final DatabaseInstanceInterface database;
 
-    public SubscriberRepository(DatabaseInstanceInterface db) {
+    protected SubscriberRepository(DatabaseInstanceInterface db) {
         this.database = db;
+    }
+
+    public static SubscriberRepository getInstance() {
+        if (instance == null) {
+            instance = new SubscriberRepository(
+                    DatabaseInstance.getInstance()
+            );
+        }
+        return instance;
     }
 
     public Subscriber create(String email) throws SQLException {

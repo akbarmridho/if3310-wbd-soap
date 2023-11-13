@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LogRepository {
-    private DatabaseInstanceInterface database;
-    private String tableName = "log";
     private static LogRepository instance;
+    private final String tableName = "log";
+    private final DatabaseInstanceInterface database;
 
     protected LogRepository(DatabaseInstanceInterface db) {
         this.database = db;
