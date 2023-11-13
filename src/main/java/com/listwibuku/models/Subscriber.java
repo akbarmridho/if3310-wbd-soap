@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class Subscriber extends BaseModel {
-    private int userId;
+    private int id;
 
     private Date subscriptionStartTime;
 
@@ -20,8 +20,8 @@ public class Subscriber extends BaseModel {
 
     private String email;
 
-    public Subscriber(int userId, Date startTime, Date endTime, String email) {
-        this.userId = userId;
+    public Subscriber(int id, Date startTime, Date endTime, String email) {
+        this.id = id;
         this.subscriptionStartTime = startTime;
         this.subscriptionEndTime = endTime;
         this.email = email;
@@ -29,7 +29,7 @@ public class Subscriber extends BaseModel {
 
     @Override
     public void constructFromSQL(ResultSet rs) throws SQLException {
-        this.userId = rs.getInt("id");
+        this.id = rs.getInt("id");
         this.subscriptionStartTime = rs.getDate("start_time");
         this.subscriptionEndTime = rs.getDate("end_time");
         this.email = rs.getString("email");

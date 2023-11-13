@@ -12,7 +12,7 @@ public interface SubscriberService {
     Subscriber createSubscriber(String email);
 
     @WebMethod
-    String renewSubscriber(int userId);
+    Subscriber renewSubscriber(int userId);
 
     @WebMethod
     Subscriber getSubscriber(int userId);
