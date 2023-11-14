@@ -7,6 +7,16 @@ ListWibuKu is a SOAP service that manage user subscription.
 1. Akbar Maulana Ridho (13521093)
 2. Eugene Yap Jin Quan (13521074)
 
+## Skema Basis Data
+
+![Schema](./.readme/schema.png)
+
+## SOAP Action yang tersedia
+
+1. `createSubscriber(int userId, String email)` endpoint to start user subscription. Return null or subscriber object
+2. `renewSubscriber(int userId)` endpoint to renew user subcription. Return null or subscriber object
+3. `getSubscriber(int userId)` endpoint to check user subscription. Return null or subscriber object
+
 ## Requirement
 
 1. Docker installed
@@ -25,7 +35,7 @@ Add this header before doing SOAP request.
 ## Service information
 
 - Mysql was run on port 3307
-- Soap service was run on port 3001
+- Soap service was run on port 3001 at endpoint `/subscriberservice`
 - Mailhog SMTP server was run on port 1025
 - Mailhog HTTP server was run on port 8025
 

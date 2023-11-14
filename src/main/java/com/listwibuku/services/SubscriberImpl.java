@@ -6,18 +6,17 @@ import com.listwibuku.repository.SubscriberRepository;
 import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.validation.constraints.Email;
 import java.sql.SQLException;
 
 @WebService(endpointInterface = "com.listwibuku.services.SubscriberService")
 @HandlerChain(file = "handlers.xml")
 public class SubscriberImpl implements SubscriberService {
     @WebMethod
-    public Subscriber createSubscriber(String email) {
+    public Subscriber createSubscriber(int userId, String email) {
         System.out.println("Create subscriber via service");
 
         try {
-            Subscriber result = SubscriberRepository.getInstance().create(email);
+            Subscriber result = SubscriberRepository.getInstance().create(userId, email);
 
             MailerService.getInstance().notifyStartSubscription(result);
 
@@ -71,6 +70,4 @@ public class SubscriberImpl implements SubscriberService {
             return null;
         }
     }
-
-
 }

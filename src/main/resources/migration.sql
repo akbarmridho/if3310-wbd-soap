@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS log
 
 CREATE TABLE IF NOT EXISTS subscriber
 (
-    id         serial primary key,
-    email      varchar(255) not null,
+    id         int primary key,
+    email      varchar(255) not null unique,
     start_date timestamp    not null default now(),
     end_date   timestamp    not null
 );

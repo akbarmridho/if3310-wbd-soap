@@ -9,7 +9,7 @@ import javax.jws.WebService;
 @WebService
 public interface SubscriberService {
     @WebMethod
-    Subscriber createSubscriber(String email);
+    Subscriber createSubscriber(int userId, String email);
 
     @WebMethod
     Subscriber renewSubscriber(int userId);

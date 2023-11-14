@@ -26,14 +26,15 @@ public class SubscriberRepository {
         return instance;
     }
 
-    public Subscriber create(String email) throws SQLException {
+    public Subscriber create(int userId, String email) throws SQLException {
         PreparedStatement statement = this.database.getConnection().prepareStatement(
-                "INSERT INTO " + this.tableName + "(email, end_date) VALUES (?, ?)",
+                "INSERT INTO " + this.tableName + "(id, email, end_date) VALUES (?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, email);
+        statement.setInt(1, userId);
+        statement.setString(2, email);
 
         // handle default end_time, default is now + 1 month
-        statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now().plusMonths(1)));
+        statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now().plusMonths(1)));
 
         int affectedRows = statement.executeUpdate();
 
