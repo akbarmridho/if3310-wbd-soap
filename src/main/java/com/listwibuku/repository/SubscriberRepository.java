@@ -4,7 +4,10 @@ import com.listwibuku.database.DatabaseInstance;
 import com.listwibuku.database.DatabaseInstanceInterface;
 import com.listwibuku.models.Subscriber;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
@@ -28,8 +31,7 @@ public class SubscriberRepository {
 
     public Subscriber create(int userId, String email) throws SQLException {
         PreparedStatement statement = this.database.getConnection().prepareStatement(
-                "INSERT INTO " + this.tableName + "(id, email, end_date) VALUES (?, ?, ?)",
-                Statement.RETURN_GENERATED_KEYS);
+                "INSERT INTO " + this.tableName + "(id, email, end_date) VALUES (?, ?, ?)");
         statement.setInt(1, userId);
         statement.setString(2, email);
 
@@ -42,23 +44,10 @@ public class SubscriberRepository {
             throw new SQLException("Create subscriber failed, no rows affected");
         }
 
-        ResultSet rs = statement.getGeneratedKeys();
-
-        Subscriber result = null;
-
-        if (rs.next()) {
-            int id = rs.getInt(1);
-            result = this.findById(id);
-        }
-
-        return result;
-
-//        TODO: validate email
+        return this.findById(userId);
     }
 
     public Subscriber findById(int userId) throws SQLException {
-        Subscriber result = null;
-
         PreparedStatement statement = this.database.getConnection().prepareStatement("SELECT * FROM " + this.tableName + " WHERE id = ? LIMIT 1");
         statement.setInt(1, userId);
         ResultSet rs = statement.executeQuery();
@@ -66,10 +55,10 @@ public class SubscriberRepository {
         while (rs.next()) {
             Subscriber subscriber = new Subscriber();
             subscriber.constructFromSQL(rs);
-            result = subscriber;
+            return subscriber;
         }
 
-        return result;
+        return null;
     }
 
     public Subscriber updateSubscription(int userId) throws SQLException {

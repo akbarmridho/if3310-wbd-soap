@@ -57,8 +57,6 @@ public class SubscriberImpl implements SubscriberService {
 
     @WebMethod
     public Subscriber getSubscriber(int userId) {
-        System.out.println("Getting status via service");
-
         try {
             return SubscriberRepository.getInstance().findById(userId);
         } catch (SQLException e) {
