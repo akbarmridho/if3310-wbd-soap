@@ -2,16 +2,16 @@
 
 ListWibuKu is a SOAP service that manage user subscription.
 
-## Daftar Anggota
+## Contributors
 
 1. Akbar Maulana Ridho (13521093)
 2. Eugene Yap Jin Quan (13521074)
 
-## Skema Basis Data
+## Database Schema
 
 ![Schema](./.readme/schema.png)
 
-## SOAP Action yang tersedia
+## SOAP Action Endpoints
 
 1. `createSubscriber(int userId, String email)` endpoint to start user subscription. Return null or subscriber object
 2. `renewSubscriber(int userId)` endpoint to renew user subcription. Return null or subscriber object
@@ -26,28 +26,28 @@ ListWibuKu is a SOAP service that manage user subscription.
 1. Clone repo
 2. Inside the repository, run `docker compose up`
 
-## How to send request
+## How to Send Request
 
 Add this header before doing SOAP request.
 
 `Authorization: your_api_key`
 
-## Service information
+## Service Information
 
 - Mysql was run on port 3307
 - Soap service was run on port 3001 at endpoint `/subscriberservice`
 - Mailhog SMTP server was run on port 1025
 - Mailhog HTTP server was run on port 8025
 
-## Bonus Mailer
+## Bonus Feature - Mailer
 
 User will be notified via email when their subscription is started or renewed through local SMTP server.
 
-## Pembagian Tugas
+## Contributions
 
 | Tugas             | NIM      |
-|-------------------|----------|
+| ----------------- | -------- |
 | User subscription | 13521074 |
 | Logger            | 13521093 |
-| Api Key           | 13521093 | 
+| Api Key           | 13521093 |
 | Bonus Mailer      | 13521093 |
